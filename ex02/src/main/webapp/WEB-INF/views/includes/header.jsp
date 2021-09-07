@@ -128,7 +128,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </a> 
                         </li>
                         <li class="divider"></li>
                         <li>
