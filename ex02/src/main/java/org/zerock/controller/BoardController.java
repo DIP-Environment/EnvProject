@@ -21,30 +21,34 @@ public class BoardController {
 	
 	private BoardService service;
 	
+	/* 팁 목록 출력 */
 	@GetMapping("/tipList")
 	public void list(Model model) {
 		log.info("tipList");
-		model.addAttribute("list", service.getList());
-		System.out.println(service.getList());
+		model.addAttribute("list", service.getList()); //tipList에 보낼 데이터
+		//System.out.println(service.getList());
 		
 	}
 	
-/*	@GetMapping("/register")
+	/* tipList에서 등록버튼을 눌러 이동 시 등록 화면만 표시*/
+	@GetMapping("/register")
 	public void register() {
 		
-	}*/
+	}
 	
+	/* 등록화면에서 데이터 입력 후 submit버튼을 누를 경우 사용*/
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register: " + board);
 		
 		service.register(board);
 		
-		rttr.addFlashAttribute("result", board.getArticle_no());
+		rttr.addFlashAttribute("result", board.getArticle_no()); //modal창에서 사용
 		
 		return "redirect:/board/tipList";
 	}
 	
+	/* get은 조회 페이지이며, 모든 데이터가 읽기 전용 */
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("article_no") Long article_no, Model model) {
 		

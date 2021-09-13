@@ -12,7 +12,7 @@
 	<result property="member_id" column="member_id"/>
 </resultMap>
 
-<select id="getList"  resultMap="clobToStr"  >
+<select id="getList"  resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
 <![CDATA[select * from tip_article_notice where article_no > 0]]>
 </select>
 
@@ -43,7 +43,8 @@
 	values (#{article_no}, #{article_title}, #{article_content}, #{member_id} )
 </insert>
 
-<select id="read" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
+
+<select id="read" resultType="org.zerock.domain.BoardVO"  >
 	select * from tip_article_notice where article_no=#{article_no}
 </select>
 

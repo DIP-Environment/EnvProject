@@ -22,17 +22,17 @@
                         	
                         	<form role="form" action="/board/register" method="post">
                         		<div class="form-group">
-                        			<label>Title</label> <input class="form-control" name='title'>
+                        			<label>제목</label> <input class="form-control" name='article_title'>
                         		</div>
                         		
                         		<div class="form-group">
-                        			<label>Text area</label> 
-                        			<textarea class="form-control" rows="3" name='content'></textarea>
+                        			<label>내용</label> 
+                        			<textarea class="form-control" rows="3" name='article_content'></textarea>
                         		</div>
                         		
                         		<div class="form-group">
-                        			<label>Writer</label> 
-                        			<input class="form-control" name='writer'>
+                        			<label>ID</label> 
+                        			<input class="form-control" name='member_id'>
                         		</div>
                         		
                         		<button type="submit" class="btn btn-default">Submit Button</button>

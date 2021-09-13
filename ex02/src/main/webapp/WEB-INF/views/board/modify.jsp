@@ -21,45 +21,45 @@
                         <div class="panel-body">
                         	<form role="form" action="/board/modify" method="post">
                         	<div class="form-group">
-                       			<label>Bno</label> <input class="form-control" name='bno' 
-                       			value='<c:out value="${board.bno}"/>' readonly = "readonly">
+                       			<label>번호</label> <input class="form-control" name='article_no' 
+                       			value='<c:out value="${board.article_no}"/>' readonly = "readonly">
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Title</label> <input class="form-control" name='title'
-                       			value='<c:out value="${board.title}"/>'>
+                       			<label>제목</label> <input class="form-control" name='article_title'
+                       			value='<c:out value="${board.article_title}"/>'>
                        			
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Text area</label> 
-                       			<textarea class="form-control" rows="3" name='content'>
-                       			<c:out value="${board.content}"/> </textarea>
+                       			<label>내용</label> 
+                       			<textarea class="form-control" rows="3" name='article_content'>
+                       			<c:out value="${board.article_content}"/> </textarea>
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Writer</label> 
-                       			<input class="form-control"  name='writer' 
-                       			value='<c:out value="${board.writer}"/>' readonly = "readonly">
+                       			<label>ID</label> 
+                       			<input class="form-control"  name='member_id' 
+                       			value='<c:out value="${board.member_id}"/>' readonly = "readonly">
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>RegDate</label> 
-                       			<input class="form-control"  name='regdate' 
-                       			value='<fmt:formatDate pattern = "yyyy/MM/dd" value="${board.regdate}"/>' readonly = "readonly">
+                       			<label>등록 날짜</label> 
+                       			<input class="form-control"  name='article_regdate' 
+                       			value='<fmt:formatDate pattern = "yyyy/MM/dd" value="${board.article_regdate}"/>' readonly = "readonly">
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Update Date</label> 
-                       			<input class="form-control"  name='updateDate' 
-                       			value='<fmt:formatDate pattern = "yyyy/MM/dd" value="${board.updateDate}"/>' readonly = "readonly">
+                       			<label>수정 날짜</label> 
+                       			<input class="form-control"  name='article_moddate' 
+                       			value='<fmt:formatDate pattern = "yyyy/MM/dd" value="${board.article_moddate}"/>' readonly = "readonly">
                        		</div>
                        		                     		
                        		
                        		<button type = "submit" data-oper='modify' class="btn btn-default">Modify</button>
                        		<button type = "submit" data-oper='remove' class="btn btn-danger">Remove</button>
                        		
-                       		<button type = "submit" data-oper='list' class="btn btn-info" >list</button>
+                       		<button type = "submit" data-oper='tipList' class="btn btn-info" >list</button>
                        	</form>
                         
                         
@@ -89,8 +89,8 @@
           		
           		if(operation === 'remove') {
           			formObj.attr("action", "/board/remove");
-          		} else if (operation === 'list') {
-          			formObj.attr("action", "/board/list").attr("method", "get");
+          		} else if (operation === 'tipList') {
+          			formObj.attr("action", "/board/tipList").attr("method", "get");
           			formObj.empty();
           		}
           		formObj.submit();

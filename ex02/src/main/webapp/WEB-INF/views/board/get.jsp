@@ -21,35 +21,35 @@
                         <div class="panel-body">
                         	
                         	<div class="form-group">
-                       			<label>Bno</label> <input class="form-control" name='Bno' 
-                       			value='<c:out value="${board.bno}"/>' readonly = "readonly">
+                       			<label>번호</label> <input class="form-control" name='article_no' 
+                       			value='<c:out value="${board.article_no}"/>' readonly = "readonly">
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Title</label> <input class="form-control" name='title'
-                       			value='<c:out value="${board.title}"/>' readonly = "readonly">
+                       			<label>제목</label> <input class="form-control" name='article_title'
+                       			value='<c:out value="${board.article_title}"/>' readonly = "readonly">
                        			
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Text area</label> 
-                       			<textarea class="form-control" rows="3" name='content' readonly = "readonly">
-                       			<c:out value="${board.content}"/> </textarea>
+                       			<label>내용</label> 
+                       			<textarea class="form-control" rows="3" name='article_content' readonly = "readonly">
+                       			<c:out value="${board.article_content}"/> </textarea>
                        		</div>
                        		
                        		<div class="form-group">
-                       			<label>Writer</label> 
-                       			<input class="form-control"  name='writer' 
-                       			value='<c:out value="${board.writer}"/>' readonly = "readonly">
+                       			<label>ID</label> 
+                       			<input class="form-control"  name='member_id' 
+                       			value='<c:out value="${board.member_id}"/>' readonly = "readonly">
                        		</div>
                        		
                        		
                        		
                        		<button data-oper='modify' class="btn btn-default">Modify</button>
-                       		<button data-oper='list' class="btn btn-info">List</button>
+                       		<button data-oper='tipList' class="btn btn-info">List</button>
                        		
                        		<form id='operForm' action="/board/modify" method="get">
-                       			<input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
+                       			<input type='hidden' id='article_no' name='article_no' value='<c:out value="${board.article_no}"/>'>
                        		</form>
                        	
                         	
@@ -74,9 +74,9 @@
        			operForm.attr("action", "/board/modify").submit();
        		});
        		
-       		$("button[data-oper='list']").on("click", function(e){
-       			operForm.find("#bno").remove();
-       			operForm.attr("action", "/board/list")
+       		$("button[data-oper='tipList']").on("click", function(e){
+       			operForm.find("#article_no").remove();
+       			operForm.attr("action", "/board/tipList")
        			operForm.submit();
        		});
        	});
