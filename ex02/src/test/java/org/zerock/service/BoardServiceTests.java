@@ -1,7 +1,6 @@
 package org.zerock.service;
 
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,7 @@ public class BoardServiceTests {
 		assertNotNull(service);
 	}
 	
-	@Test
+/*	@Test
 	public void testRegister() {
 		
 		BoardVO board = new BoardVO();
@@ -39,7 +38,7 @@ public class BoardServiceTests {
 		service.register(board);
 		
 		log.info("생성된 게시물의 번호: " + board.getBno());
-	}
+	}*/
 	
 	@Test
 	public void testGetList() {
@@ -56,7 +55,7 @@ public class BoardServiceTests {
 		log.info("REMOVE RESULT: " + service.remove(2L));
 	}
 	
-	@Test
+/*	@Test
 	public void testUpdate() {
 		BoardVO board = service.get(1L);
 		
@@ -66,6 +65,6 @@ public class BoardServiceTests {
 		
 		board.setTitle("제목 수정합니다.");
 		log.info("MODIFY RESULT: " + service.modify(board));
-	}
+	}*/
 
 }

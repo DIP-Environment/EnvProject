@@ -2,39 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
-<select id="getList" resultType="org.zerock.domain.BoardVO">
-<![CDATA[select * from tbl_board where bno > 0]]>
+<!-- Clob 데이터 타입을 string으로 처리  -->
+<resultMap type="map" id="clobToStr">
+	<result property="article_no" column="article_no" />
+	<result property="article_title" column="article_title" />
+	<result property="article_content" column="article_content" javaType="string"/>
+	<result property="article_regdate" column="article_regdate"/>
+	<result property="article_moddate" column="article_moddate"/>
+	<result property="member_id" column="member_id"/>
+</resultMap>
+
+<select id="getList"  resultMap="clobToStr"  >
+<![CDATA[select * from tip_article_notice where article_no > 0]]>
 </select>
 
+<select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+	<![CDATA[
+	select bno, title, content, writer, regdate, updatedate
+	from (select /*+INDEX_DESC(tbl_board pk_board) */
+			rownum rn, bno, title, content, writer, regdate, updatedate
+			from tbl_board
+			where rownum <=20)
+	where rn > 10
+	]]>
+</select>
+
+
 <insert id="insert">
-	insert into tbl_board (bno, title, content, writer)
-	values (seq_board.nextval, #{title}, #{content}, #{writer})
+	insert into tip_article_notice (article_no, article_title, article_content, member_id)
+	values (seq_tip.nextval, #{article_title}, #{article_content}, #{member_id} )
 </insert>
+
 
 <insert id="insertSelectKey">
-	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
-		select seq_board.nextval from dual
+	<selectKey keyProperty="article_no" order="BEFORE" resultType="long">
+		select seq_tip.nextval from dual
 	</selectKey>
 	
-	insert into tbl_board (bno, title, content, writer)
-	values (#{bno}, #{title}, #{content}, #{writer})
+	insert into tip_article_notice (article_no, article_title, article_content, member_id)
+	values (#{article_no}, #{article_title}, #{article_content}, #{member_id} )
 </insert>
 
-<select id="read" resultType="org.zerock.domain.BoardVO">
-	select * from tbl_board where bno=#{bno}
+<select id="read" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
+	select * from tip_article_notice where article_no=#{article_no}
 </select>
 
 <delete id="delete" >
-	delete from tbl_board where bno=#{bno}
+	delete from tip_article_notice where article_no=#{article_no}
 </delete>
 
 <update id="update">
-	update tbl_board
-	set title=#{title},
-	content=#{content},
-	writer=#{writer},
-	updateDate=sysdate
-	where bno = #{bno}
+	update tip_article_notice
+	set article_title=#{article_title},
+	article_content=#{article_content},
+	member_id=#{member_id},
+	article_moddate=sysdate
+	where article_no = #{article_no}
 </update>
 
 </mapper>

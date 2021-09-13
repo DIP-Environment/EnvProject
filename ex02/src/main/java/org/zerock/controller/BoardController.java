@@ -21,17 +21,18 @@ public class BoardController {
 	
 	private BoardService service;
 	
-	@GetMapping("/list")
+	@GetMapping("/tipList")
 	public void list(Model model) {
-		log.info("list");
+		log.info("tipList");
 		model.addAttribute("list", service.getList());
+		System.out.println(service.getList());
 		
 	}
 	
-	@GetMapping("/register")
+/*	@GetMapping("/register")
 	public void register() {
 		
-	}
+	}*/
 	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
@@ -39,16 +40,16 @@ public class BoardController {
 		
 		service.register(board);
 		
-		rttr.addFlashAttribute("result", board.getBno());
+		rttr.addFlashAttribute("result", board.getArticle_no());
 		
-		return "redirect:/board/list";
+		return "redirect:/board/tipList";
 	}
 	
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("article_no") Long article_no, Model model) {
 		
 		log.info("/get of modify");
-		model.addAttribute("board", service.get(bno));
+		model.addAttribute("board", service.get(article_no));
 	}
 	
 	
@@ -59,16 +60,16 @@ public class BoardController {
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/tipList";
 	}
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-		log.info("remove..." + bno);
-		if(service.remove(bno)) {
+	public String remove(@RequestParam("article_no") Long article_no, RedirectAttributes rttr) {
+		log.info("remove..." + article_no);
+		if(service.remove(article_no)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/tipList";
 	}
 }
 

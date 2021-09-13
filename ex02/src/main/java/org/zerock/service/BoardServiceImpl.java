@@ -28,10 +28,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardVO get(Long bno) {
-		log.info("get......" + bno);
+	public BoardVO get(Long article_no) {
+		log.info("get......" + article_no);
 		
-		return mapper.read(bno);
+		return mapper.read(article_no);
 	}
 
 	@Override
@@ -42,10 +42,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public boolean remove(Long bno) {
-		log.info("remove......" + bno);
+	public boolean remove(Long article_no) {
+		log.info("remove......" + article_no);
 		
-		return mapper.delete(bno) == 1;
+		return mapper.delete(article_no) == 1;
 	}
 
 	@Override
@@ -54,6 +54,8 @@ public class BoardServiceImpl implements BoardService{
 		
 		return mapper.getList();
 	}
+
+
 	
 	
 
