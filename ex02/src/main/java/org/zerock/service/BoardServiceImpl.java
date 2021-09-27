@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -19,40 +20,46 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper mapper;
 	
 	@Override
-	public void register(BoardVO board) {
+	public void tip_register(BoardVO board) {
 		
 		log.info("register...." + board);
 		
-		mapper.insertSelectKey(board);
+		mapper.tip_insertSelectKey(board);
 		
 	}
 
 	@Override
-	public BoardVO get(Long article_no) {
+	public BoardVO tip_get(Long article_no) {
 		log.info("get......" + article_no);
 		
-		return mapper.read(article_no);
+		return mapper.tip_read(article_no);
 	}
 
 	@Override
-	public boolean modify(BoardVO board) {
+	public boolean tip_modify(BoardVO board) {
 		log.info("modify......" + board);
 		
-		return mapper.update(board) == 1;
+		return mapper.tip_update(board) == 1;
 	}
 
 	@Override
-	public boolean remove(Long article_no) {
+	public boolean tip_remove(Long article_no) {
 		log.info("remove......" + article_no);
 		
-		return mapper.delete(article_no) == 1;
+		return mapper.tip_delete(article_no) == 1;
 	}
 
 	@Override
-	public List<BoardVO> getList() {
-		log.info("getList......");
+	public List<BoardVO> tip_getList(Criteria cri) {
+		log.info("get List with criteria......" + cri);
 		
-		return mapper.getList();
+		return mapper.tip_getListWithPaging(cri);
+	}
+
+	@Override
+	public int tip_getTotal(Criteria cri) {
+		log.info("get total count");
+		return mapper.tip_getTotalCount(cri);
 	}
 
 

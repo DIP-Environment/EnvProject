@@ -1,5 +1,5 @@
 .u-section-1 {
-  background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("images/gef014661eb4430f1fa06acc1492044287386a0d32c7902d7d659029d1ebd0fb8ccb9e316262ab250206c0ef6519a20d923f54e71cd5e4a1e6fe37876f90cea88_1280.jpg");
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/resources/img/getMain.png");
   background-position: 50% 50%;
 }
 
@@ -7,11 +7,13 @@
   min-height: 501px;
 }
 
+
 .u-section-1 .u-text-1 {
   font-size: 3rem;
   font-weight: 700;
   margin: 236px 881px 0 87px;
 }
+
 
 .u-section-1 .u-text-2 {
   margin: 0 auto 60px 87px;

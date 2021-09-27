@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.zerock.mapper.BoardMapper">
+ <mapper namespace="org.zerock.mapper.BoardMapper">
 
-<!-- Clob 데이터 타입을 string으로 처리  -->
-<resultMap type="map" id="clobToStr">
+<!--
+Clob 데이터 타입을 string으로 처리 
+<resultMap type="org.zerock.domain.BoardVO" id="clobToStr">
 	<result property="article_no" column="article_no" />
 	<result property="article_title" column="article_title" />
 	<result property="article_content" column="article_content" javaType="string"/>
@@ -12,29 +13,64 @@
 	<result property="member_id" column="member_id"/>
 </resultMap>
 
-<select id="getList"  resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
+<select id="tip_getList"  resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
 <![CDATA[select * from tip_article_notice where article_no > 0]]>
 </select>
 
-<select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+<select id="getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
 	<![CDATA[
-	select bno, title, content, writer, regdate, updatedate
-	from (select /*+INDEX_DESC(tbl_board pk_board) */
-			rownum rn, bno, title, content, writer, regdate, updatedate
-			from tbl_board
-			where rownum <=20)
-	where rn > 10
+	select article_no, article_title, article_content, member_id, article_regdate, article_moddate
+	from (select /*+INDEX_DESC(tip_article_notice pk_tip) */
+			rownum rn, article_no, article_title, article_content, member_id, article_regdate, article_moddate
+			from tip_article_notice
+			where rownum <= #{pageNum} * #{amount})
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+ 
+ 검색 데이터의 개수 처리
+ <sql id="criteria">
+ 	<trim prefix="(" suffix=") AND " prefixOverrides="OR" >
+		<foreach item='type' collection="typeArr">
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'T'.toString()">
+						article_title like '%' ||#{keyword}||'%'
+					</when>
+					<when test="type == 'C'.toString()">
+						article_content like '%' ||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+ </sql>
+ 
+ <select id="tip_getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
+	<![CDATA[
+	select article_no, article_title, article_content, member_id, article_regdate, article_moddate
+	from (select /*+INDEX_DESC(tip_article_notice pk_tip) */
+			rownum rn, article_no, article_title, article_content, member_id, article_regdate, article_moddate
+			from tip_article_notice
+			where 
+	]]>
+	
+	<include refid="criteria"></include>
+	
+	<![CDATA[rownum <= #{pageNum} * #{amount})
+	where rn > (#{pageNum} -1) * #{amount}
 	]]>
 </select>
 
 
-<insert id="insert">
+<insert id="tip_insert">
 	insert into tip_article_notice (article_no, article_title, article_content, member_id)
 	values (seq_tip.nextval, #{article_title}, #{article_content}, #{member_id} )
 </insert>
 
 
-<insert id="insertSelectKey">
+<insert id="tip_insertSelectKey">
 	<selectKey keyProperty="article_no" order="BEFORE" resultType="long">
 		select seq_tip.nextval from dual
 	</selectKey>
@@ -44,15 +80,15 @@
 </insert>
 
 
-<select id="read" resultType="org.zerock.domain.BoardVO"  >
+<select id="tip_read" resultType="org.zerock.domain.BoardVO"  >
 	select * from tip_article_notice where article_no=#{article_no}
 </select>
 
-<delete id="delete" >
+<delete id="tip_delete" >
 	delete from tip_article_notice where article_no=#{article_no}
 </delete>
 
-<update id="update">
+<update id="tip_update" >
 	update tip_article_notice
 	set article_title=#{article_title},
 	article_content=#{article_content},
@@ -61,5 +97,117 @@
 	where article_no = #{article_no}
 </update>
 
-</mapper>
+<select id="tip_getTotalCount" resultType="int">
+	select count(*) from tip_article_notice where
+	<include refid="criteria"></include>
+	article_no > 0
+</select>
+-->
+
+
+<!-- Clob 데이터 타입을 string으로 처리  -->
+<resultMap type="org.zerock.domain.BoardVO" id="clobToStr">
+	<result property="article_no" column="article_no" />
+	<result property="article_title" column="article_title" />
+	<result property="article_content" column="article_content" javaType="string"/>
+	<result property="article_regdate" column="article_regdate"/>
+	<result property="article_moddate" column="article_moddate"/>
+	<result property="member_id" column="member_id"/>
+</resultMap>
+
+<select id="tip_getList"  resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
+<![CDATA[select * from tbl_article where bbs_type = 'tip' and (article_no > 0) ]]>
+</select>
+
+<!-- 검색 데이터의 개수 처리 -->
+ <sql id="criteria">
+ 	<trim prefix="(" suffix=") AND " prefixOverrides="OR" >
+		<foreach item='type' collection="typeArr">
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'T'.toString()">
+						article_title like '%' ||#{keyword}||'%'
+					</when>
+					<when test="type == 'C'.toString()">
+						article_content like '%' ||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+ </sql>
+ 
+ <select id="tip_getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
+	<![CDATA[
+	select article_no, 
+	       article_title, 
+	       article_content, 
+	       member_id, 
+	       article_regdate, 
+	       article_moddate, 
+	       article_link
+	  from (select rownum rn, 
+	               article_no, 
+	               article_title, 
+	               article_content, 
+	               member_id, 
+	               article_regdate, 
+	               article_moddate,
+	               article_link
+			  from tbl_article
+			 where bbs_type = 'tip'
+	]]>
+	
+	<include refid="criteria"></include>
+	
+	<![CDATA[and rownum <= #{pageNum} * #{amount}
+	        order by article_no desc
+	)
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+
+<insert id="tip_insertSelectKey">
+	<selectKey keyProperty="article_no" order="BEFORE" resultType="long">
+		select seq_tip.nextval 
+		  from dual
+	</selectKey>
+	
+	insert into tbl_article (article_no, article_title, article_content, member_id, article_link, bbs_type)
+	values (#{article_no}, #{article_title}, #{article_content}, #{member_id},#{article_link}, 'tip' )
+</insert>
+
+
+<select id="tip_read" resultType="org.zerock.domain.BoardVO"  >
+	select * 
+	  from tbl_article
+	 where article_no=#{article_no}
+</select>
+
+<delete id="tip_delete" >
+	delete 
+	  from tbl_article 
+	 where article_no=#{article_no}
+</delete>
+
+<update id="tip_update" >
+	update tbl_article
+	   set article_title=#{article_title},
+	       article_content=#{article_content},
+	       article_link=#{article_link},
+	       member_id=#{member_id},
+	       article_moddate=sysdate
+	 where article_no = #{article_no}
+</update>
+
+<select id="tip_getTotalCount" resultType="int">
+	select count(*) 
+	  from tbl_article
+	 where bbs_type = 'tip' 
+	   and
+	<include refid="criteria"></include>
+	article_no > 0
+</select>
+</mapper> 
 

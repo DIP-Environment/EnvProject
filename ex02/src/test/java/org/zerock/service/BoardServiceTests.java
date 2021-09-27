@@ -1,13 +1,11 @@
 package org.zerock.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -20,12 +18,12 @@ public class BoardServiceTests {
 	@Setter(onMethod_ = {@Autowired})
 	private BoardService service;
 	
-	@Test
+/*	@Test
 	public void testExist() {
 		
 		log.info(service);
 		assertNotNull(service);
-	}
+	}*/
 	
 /*	@Test
 	public void testRegister() {
@@ -42,10 +40,10 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList().forEach(board -> log.info(board));
+		service.tip_getList(new Criteria(2, 10)).forEach(board -> log.info(board));
 	}
 	
-	@Test
+/*	@Test
 	public void testGet() {
 		log.info(service.get(1L));
 	}
@@ -54,7 +52,7 @@ public class BoardServiceTests {
 	public void testDelete() {
 		log.info("REMOVE RESULT: " + service.remove(2L));
 	}
-	
+	*/
 /*	@Test
 	public void testUpdate() {
 		BoardVO board = service.get(1L);

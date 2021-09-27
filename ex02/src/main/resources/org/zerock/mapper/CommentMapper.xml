@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.CommentMapper">
+	
+	<insert id="tip_insert">
+		insert into tbl_comment (comment_no, article_no, comment_content, comment_member_id)
+		values (seq_tip_comment.nextval, #{article_no}, #{comment_content}, #{comment_member_id})	
+	</insert>
+	
+	<select id="tip_read" resultType="org.zerock.domain.CommentVO">	
+		select * from tbl_comment where comment_no = #{comment_no}	
+	</select>
+	
+	<delete id="tip_delete">
+		delete from tbl_comment where comment_no = #{comment_no}
+	</delete>
+	
+	<update id="tip_update">
+		update tbl_comment set comment_content = #{comment_content}, comment_moddate = sysdate where comment_no = #{comment_no}
+	</update>
+	
+	<select id="tip_getListWithPaging" resultType="org.zerock.domain.CommentVO">
+		select comment_no, article_no, comment_content, comment_member_id, comment_regdate, comment_moddate from tbl_comment
+		where article_no = #{article_no} order by comment_no asc
+	</select>
+	
+	
+</mapper>

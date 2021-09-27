@@ -1,0 +1,269 @@
+.u-section-1 {
+  background-image: url("/resources/img/tipWriteMain.jpg");
+  background-position: 50% 50%;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 366px;
+}
+
+.u-section-1 .u-text-1 {
+  font-size: 4.5rem;
+  margin: 150px auto 0 106px;
+}
+
+.u-section-1 .u-text-2 {
+  font-size: 1.25rem;
+  margin: 0 auto 60px 115px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 368px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -185px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 357px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -175px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 293px;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 1.5rem;
+    margin-top: -58px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-left: 72px;
+  }
+}.u-section-2 {
+  min-height: 896px;
+}
+
+.u-section-2 .u-group-1 {
+  min-height: 896px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.u-section-2 .u-container-layout-1 {
+  padding: 0;
+}
+
+.u-section-2 .u-group-2 {
+  width: 769px;
+  min-height: 723px;
+  margin: 131px auto 0;
+}
+
+.u-section-2 .u-container-layout-2 {
+  padding: 0;
+}
+
+.u-section-2 .u-group-3 {
+  min-height: 87px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.u-section-2 .u-container-layout-3 {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.u-section-2 .u-text-1 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin: 29px 624px 0 2px;
+}
+
+.u-section-2 .u-group-4 {
+  width: 767px;
+  min-height: 636px;
+  margin: 0 auto;
+}
+
+.u-section-2 .u-container-layout-4 {
+  padding: 0;
+}
+
+.u-section-2 .u-group-5 {
+  min-height: 63px;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.u-section-2 .u-container-layout-5 {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.u-section-2 .u-icon-1 {
+  width: 40px;
+  height: 40px;
+  margin: 16px auto 0 16px;
+}
+
+.u-section-2 .u-shape-1 {
+  width: 344px;
+  height: 23px;
+  margin: -31px auto 0 85px;
+}
+
+.u-section-2 .u-btn-1 {
+  border-style: none;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.625rem;
+  background-image: none;
+  margin: -26px 150px 0 auto;
+  padding: 6px 30px 7px;
+}
+
+.u-section-2 .u-line-1 {
+  width: 766px;
+  height: 3px;
+  transform-origin: center top;
+  margin: 3px auto 0 -3px;
+}
+
+.u-section-2 .u-form-1 {
+  height: 423px;
+  width: 766px;
+  margin: -563px auto 0;
+}
+
+.u-section-2 .u-btn-2 {
+  border-style: none;
+  background-image: none;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-group-2 {
+    margin-top: 234px;
+  }
+
+  .u-section-2 .u-container-layout-3 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .u-section-2 .u-text-1 {
+    font-weight: 900;
+  }
+
+  .u-section-2 .u-container-layout-5 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-2 .u-group-2 {
+    width: 720px;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 577px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-group-4 {
+    width: 720px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    margin-right: 103px;
+  }
+
+  .u-section-2 .u-line-1 {
+    width: 720px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-form-1 {
+    width: 720px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-group-2 {
+    width: 540px;
+  }
+
+  .u-section-2 .u-container-layout-3 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 437px;
+  }
+
+  .u-section-2 .u-group-4 {
+    width: 540px;
+  }
+
+  .u-section-2 .u-container-layout-5 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    margin-right: 0;
+  }
+
+  .u-section-2 .u-line-1 {
+    width: 540px;
+  }
+
+  .u-section-2 .u-form-1 {
+    width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-2 .u-group-2 {
+    width: 340px;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 237px;
+  }
+
+  .u-section-2 .u-group-4 {
+    width: 340px;
+  }
+
+  .u-section-2 .u-shape-1 {
+    width: 320px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-line-1 {
+    width: 340px;
+  }
+
+  .u-section-2 .u-form-1 {
+    width: 340px;
+  }
+}
