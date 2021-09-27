@@ -158,7 +158,7 @@ CREATE TABLE tbl_article (
 	article_moddate date default sysdate /* 글수정일자 */
 );
 
-
+select * from tbl_article where bbs_type = 'tip' and (article_no > 0)
 select * from tbl_article;
 insert into tbl_article(article_no, bbs_type,  member_id, article_title, article_content)
 values (seq_tip.nextval, 'tip', 'admin', '환경오염', '환경오염의 심각성');
