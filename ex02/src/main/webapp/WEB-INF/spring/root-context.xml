@@ -14,13 +14,8 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-<<<<<<< HEAD
 			value="jdbc:log4jdbc:oracle:thin:@192.168.40.26:1521:XE"></property>
 		<property name="username" value="taewoo"></property>
-=======
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-		<property name="username" value="hr"></property>
->>>>>>> refs/remotes/origin/master
 		<property name="password" value="1234"></property>
 	</bean>
 	
