@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String IdCheck = (String)session.getAttribute("IdCheck");
+%>  
 <!DOCTYPE html>
 <html style="font-size: 16px;">
   <head>
@@ -53,7 +56,7 @@
     <section class="u-clearfix u-image u-section-1" id="sec-9329" data-image-width="1280" data-image-height="853">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-white u-text-1"> Write</h2>
-        <h2 class="u-text u-text-default u-text-white u-text-2">Home &gt; Say &gt; Write</h2>
+        <h2 class="u-text u-text-default u-text-white u-text-2">Home &gt; Tip &gt; Write</h2>
       </div>
     </section>
    <!-- <!-- Appears on Tiny Blueprint (https://www.tiny.cloud/blog/) in articles:
@@ -68,7 +71,7 @@
                 <input type="text" name='article_title' class="form-control" id="title" placeholder="제목" style="font-family: 'Gowun Batang', serif;">
             </div>
 
-
+				<input type="hidden" name='member_id' value="<%=IdCheck %>">
             <div class="form-group" >
               <label style="font-family: 'Gowun Batang', serif;">내용</label>
               <textarea id="mytextarea" rows="20" name='article_content' ></textarea>

@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CommentMapperTests {
 	
-	private Long[] article_noArr = { 126L, 127L, 128L, 129L, 130L};
+	private Long[] article_noArr = { 164L, 179L, 190L, 211L};
 	
 	@Setter(onMethod_ = @Autowired)
 	private CommentMapper mapper;

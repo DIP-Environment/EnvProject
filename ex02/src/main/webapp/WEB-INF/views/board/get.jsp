@@ -2,14 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String adminCheck = (String)session.getAttribute("adminCheck");
+	String IdCheck = (String)session.getAttribute("IdCheck");
+	
+	System.out.println("IdCheck : " + IdCheck);
+%> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
-
+  
    <!--- basic page needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>talk detail</title>
+	<title>Tip detail</title>
 	<meta name="description" content="">  
 	<meta name="author" content="">
 
@@ -57,7 +64,7 @@
 
    				<div class="content-media">
 						<div class="post-thumb">
-							<img src="/resources/img/single-01.jpg"> 
+							<img src="/resources/img/tipGet.png"> 
 						</div>  
 					</div>
 
@@ -67,7 +74,7 @@
 
 						<ul class="entry-meta">
 							<li class="date"><fmt:formatDate value="${board.article_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></li>						
-							<li class="cat"><a href="">Admin</a></li>		
+							<li class="cat"><p><c:out value="${board.member_id}"/></p></li>		
 	
 						</ul>						
 
@@ -80,8 +87,13 @@
 <!-- 이미지 삽입 부분 끝 -->
 						
 <button data-oper='tipList' type="submit" class="mybtn" style="float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">목록</button>
-<button data-oper='modify' type="submit" class="mybtn" style="float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">수정</button>
-<button data-oper='remove' type="submit" class="mybtn" style="float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">삭제</button>
+
+
+
+<c:if test="${IdCheck eq board.member_id || adminCheck eq 'Y'}">
+	<button data-oper='modify' type="submit" class="mybtn" style="float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">수정</button>
+	<button data-oper='remove' type="submit" class="mybtn" style="float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">삭제</button>
+</c:if>
 
 <form id='operForm' action="/board/modify" method="get">
       <input type='hidden' id='article_no' name='article_no' value='<c:out value="${board.article_no}"/>'>
@@ -144,7 +156,7 @@
 
                <!-- respond -->
                <div class="respond comment_write">
-
+<c:if test = "${ not empty loginMember}">
                	<h3>Leave a Comment</h3>
 
                   <!-- <form name="contactForm" id="contactForm" method="post" action=""></form> Form End -->
@@ -153,14 +165,15 @@
 						<input name="comment_member_id" value='comment_member_id' type='hidden'>
 						<input name="comment_regdate" value='' type='hidden' >
                      <!-- <div class="form-field">-->
-                     
+                  
                         <textarea name="comment_content"  class="full-width" style="font-size:20px;"></textarea>
+                       
                      </div>
-
+					
                      <button id='commentRegisterBtn'style="margin:30px 0 ;float:right;background:white;color:black;border-radius: 30px;border-color:#33AFFF;border-style:solid;border-width:1px;color:#33AFFF">등록</button>
-
+					
   					   </fieldset>
-  				      
+  				 </c:if>     
 
                </div> <!-- Respond End -->
 
@@ -174,27 +187,22 @@
    		<div class="modal-content">
    			<div class="modal-header">
    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-   				<h4 class="modal-title" id="myModalLabel">COMMENT MODAL</h4>
-   			</div>
-   			<div class="modal-body">
-   				<div class="form-group">
-   					<label style="font-size:20px;">comment</label>
-   					<input class="form-control" style="font-size:20px;" name='comment_content' value='New'>
-   				</div>
-   				<div class="form-group">
-   					<label style="font-size:20px;" >member</label>
-   					<input class="form-control" style="font-size:20px;" name='comment_member_id' value='<c:out value="${board.member_id}"/>'>  				
-   				</div>
-   				<div class="form-group">
-   					<label style="font-size:20px;" >Reply Date</label>
-   					<input class="form-control"style="font-size:20px;"  name='comment_regdate' value=''>  				
-   				</div>
-   			</div>
+   			 					<h4 class="modal-title" id="myModalLabel">댓글 관리</h4>
+
    			
    			<div class="modal-footer">
-   				<button id='modalModBtn' style="font-size:15px;" type="button" class="btn btn-warning">Modify</button>
-   				<button id='modalRemoveBtn'style="font-size:15px;" type="button" class="btn btn-danger">Remove</button>
-   				<button id='modalCloseBtn' style="font-size:15px;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   			<style>
+   				#modalCloseBtn:hover {
+   					background-color:#EDD8CA;
+   					
+   				}
+   			</style>
+   				<button id='modalModBtn' style="color:white; pading:1.5rem; width:80px; text-align:center; font-size:15px; 
+   border-radius: 15px;  " type="button" class="btn btn-warning">수정</button>
+   				<button id='modalRemoveBtn'style="pading:1.5rem; width:80px; text-align:center; font-size:15px;
+   border-radius: 15px;" type="button" class="btn btn-danger">삭제</button>
+   				<button id='modalCloseBtn' style="color:white; background-color:#EEC0B7; pading:1.5rem; width:80px; text-align:center; font-size:15px; 
+   border-radius: 15px;" type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
    			</div>
    		</div>
    	</div>
@@ -240,7 +248,7 @@
 					for (var i=0, len = list.length || 0; i < len; i++) {
 						str +="<li class='depth-1' data-comment_no='"+list[i].comment_no+"'>";
 						str +="<div class='comment-content'>";
-						str +="<div class='comment-info'>";
+						str +="<div class='comment-info' style='font-weight: bold;'>";
 						str +="<cite>"+list[i].comment_member_id+"</cite>";
 						str +="<div class='comment-meta'>";
 						str +="<small class='comment-time' datetime='2014-07-12T23:05'>"+ commentService.displayTime(list[i].comment_regdate) +"</small>";
@@ -254,7 +262,7 @@
 			/* comment 등록 */
 			var com_write = $(".comment_write"); //comment div영역
 			var inputComment = com_write.find("textarea[name='comment_content']");		
-			var inputCommentMember = '<c:out value="${board.member_id}"/>'; //member_id를 댓글 작성자로 설정
+			var inputCommentMember = '<c:out value="${loginMember}"/>'; //member_id를 댓글 작성자로 설정
 				/* com_write.find("input[name='comment_member_id']"); */
 			var inputCommentDate = com_write.find("input[name='comment_regdate']");
 			
@@ -268,7 +276,7 @@
 						article_no : comment_noValue
 				};
 				commentService.add(comment, function(result) {
-					alert(result);
+					//alert(result);
 					
 					com_write.find("input").val();
 					com_write.find("textarea").val("");
@@ -311,7 +319,7 @@
 				var comment = {comment_no : modal.data("comment_no"), comment_content : modalInputReply.val()};
 				
 				commentService.update(comment, function(result){
-					alert(result);
+					//alert(result);
 					modal.modal("hide");
 					showList(1);
 				});
@@ -322,7 +330,7 @@
 				var comment_no = modal.data("comment_no");
 				
 				commentService.remove(comment_no, function(result){
-					alert(result);
+					//alert(result);
 					modal.modal("hide");
 					showList(1);
 				});

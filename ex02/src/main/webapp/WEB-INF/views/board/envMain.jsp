@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" style="overflow-y:hidden; overflow-y:scroll;">
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="webstoryboy">
@@ -32,13 +32,8 @@
         <div id="header" role="header">
             <div class="container">
                 <div class="header">
-                
-                    <div class="header-menu">
-                    	
-                        <a href="#" style="font-size:medium; ">로그인</a>
-                        <a href="#" style="font-size:medium; ">회원가입</a>
-                        
-                    </div>
+                	
+                    
                     <!-- //헤더 메뉴 -->
                     <!-- <div class="header-tit">
                     	<br>
@@ -66,11 +61,11 @@
                 <div class="container">
                     <div class="ban">
 
-                        <div><a id="img1" href="#"><img id="img1" src="/resources/img/banner1.png" alt=""></a></div>
-                        <div><a href="#"><img src="/resources/img/banner2.png" alt=""></a></div>
-                        <div><a href="#"><img src="/resources/img/banner3.png" alt=""></a></div>
-                        <div><a href="#"><img src="/resources/img/banner4.png" alt=""></a></div>
-                        <div><a href="#"><img src="/resources/img/banner5.png" alt=""></a></div>
+                        <div><a id="img1" href="#"><img src="/resources/img/banner1.png" alt=""></a></div>
+                        <div><a id="img2" href="#"><img src="/resources/img/banner2.png" alt=""></a></div>
+                        <div><a id="img3" href="#"><img src="/resources/img/banner3.png" alt=""></a></div>
+                        <div><a id="img4" href="#"><img src="/resources/img/banner4.png" alt=""></a></div>
+                        <div><a id="img5" href="#"><img src="/resources/img/banner5.png" alt=""></a></div>
                         
                         
                     </div>
@@ -86,30 +81,32 @@
                             <h3><span class="ico_img ir_pm">아이콘1</span><em class="ico_tit">SAY and TIP</em></h3>
                             <p class="ico_desc"><br></p>
                             <!-- 게시판 -->
-                            <div class="notice">
+                            <div class="notice2">
                                 <h4>Say</h4>
                                 <ul>
-                                    <li><a href="#">뉴스1</a></li>
-                                    <li><a href="#">뉴스2</a></li>
-                                    <li><a href="#">뉴스3</a></li>
-                                    <li><a href="#">뉴스4</a></li>
-                                    <li><a href="#">뉴스5</a></li>
+                                 <c:forEach items="${sayList}" varStatus="index" var="say" begin="0" end="2" >
+                                    <li><a href="/say/sayList" ><c:out value="${say.article_title}"/></a><span><fmt:formatDate value="${say.article_regdate}" pattern="yyyy-MM-dd"/></span></li>
+                                 </c:forEach>
+                                 
                                 </ul>
-                                <a href="#" class="more ir_pm" title="더보기">더보기</a>
+                                <a href="/say/sayList" class="more ir_pm" title="더보기">더보기</a>
                             </div>
+                            <br>
+                            
                             <!-- //게시판 -->
                             
                             <!-- 게시판 유형2 -->
                             <div class="notice2">
                                 <h4>Tip</h4>
-                                <ul>
-                                    <li><a href="#">팁1</a><span>2018.11.16</span></li>
-                                    <li><a href="#">팁2</a><span>2018.11.16</span></li>
-                                    <li><a href="#">팁3</a><span>2018.11.16</span></li>
-                                    <li><a href="#">팁4</a><span>2018.11.16</span></li>
-                                    <li><a href="#">팁5</a><span>2018.11.16</span></li>
+                                <ul>                              
+                                	<c:forEach items="${list}" varStatus="index" var="board" begin="0" end="2">
+                                		
+                                    	<li><a href="/board/get?article_no=${board.article_no}"><c:out value="${board.article_title}"/></a><span><fmt:formatDate value="${board.article_regdate}" pattern="yyyy-MM-dd"/></span></li>
+                                 	</c:forEach>
                                 </ul>
-                                <a href="#" class="more ir_pm" title="더보기">더보기</a>
+                                <li></li>
+                                </ul>
+                                <a href="/board/tipList" class="more ir_pm" title="더보기">더보기</a>
                             </div>
                             <!-- //게시판 유형2 -->
                         </div>
@@ -120,38 +117,20 @@
                             <p class="ico_desc"><br></p>
                             <!-- 게시판 유형3 -->
                             <div class="notice3">
-                                <h4>HTML Reference</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <img src="/resources/img/notice01.jpg" alt="이미지1">
-                                            <strong>[Talk1]</strong> <table>
-                                            <span> 나의 이야기</span></table>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="/resources/img/notice02.jpg" alt="이미지2">
-                                            <b>[Talk2] </b><div>
-                                            <span> 나의 이야기</span></div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="/resources/img/notice03.jpg" alt="이미지3">
-                                            <strong>[Talk3] </strong><dl>
-                                            <span> 나의 이야기</span></dl>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img src="/resources/img/notice04.jpg" alt="이미지4">
-                                            <b>[Talk4] </b><em>
-                                            <span> 나의 이야기</span></em>
-                                        </a>
-                                    </li>
+                                <h4>Talk</h4>
+                                <ul >
+                                	<c:forEach items="${talkList}" varStatus="index" var="talk" begin="0" end="2">
+	                                   <li >
+	                                       <a href="/talk/get?article_no=${talk.article_no }">
+	                                           <img height=50 width=20 src="/resources/img/notice0<c:out value="${index.count}"/>.jpg" alt="이미지1">
+	                                           <strong><c:out value="${talk.article_title}"/></strong> <table>
+	                                           <span style="overflow: hidden;text-overflow: ellipsis;height: 20px;white-space: nowrap;"> <c:out value="${talk.article_content}" escapeXml="false"/></span></table>
+	                                          
+	                                       </a>
+	                                   </li>
+                                    </c:forEach>
                                 </ul>
-                                <a href="#" class="more ir_pm" title="더보기">더보기</a>
+                                <a href="/talk/talkList" class="more ir_pm" title="더보기">더보기</a>
                             
                             </div>
                             <!-- //게시판 유형3 -->
@@ -166,7 +145,7 @@
                             
                             <!-- 갤러리 -->
                             <div class="gallery">
-                                <h4>지구 감상</h4>
+                                <h4>    </h4>
 <!--
                                 <div class="gallery_btn">
                                     <ul>
@@ -227,6 +206,41 @@
     <script src="/resources/js/lightgallery-all.min.js"></script>
     <script src="/resources/js/custom.js"></script>
 </body>
-
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+	           
+	           
+       $("#img1").on("click", function() {
+    	  
+    	  $("#header").css({"background":"url(/resources/img/main1.jpg) center top no-repeat"}); 	
+    	   
+ 		});
+       
+       $("#img2").on("click", function() {
+     	  
+     	  $("#header").css({"background":"url(/resources/img/main2.jpg) center top no-repeat"}); 	
+     	   
+  		});
+       
+       $("#img3").on("click", function() {
+     	  
+     	  $("#header").css({"background":"url(/resources/img/main3.jpg) center top no-repeat"}); 	
+     	   
+  		});
+       
+       $("#img4").on("click", function() {
+     	  
+     	  $("#header").css({"background":"url(/resources/img/main4.jpg) center top no-repeat"}); 	
+     	   
+  		});
+       
+       $("#img5").on("click", function() {
+     	  
+     	  $("#header").css({"background":"url(/resources/img/main5.jpg) center top no-repeat"}); 	
+     	   
+  		});
+	
+	});
+</script> -->
 
 </html>

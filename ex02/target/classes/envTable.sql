@@ -114,6 +114,10 @@ select * from tbl_member;
 insert into tbl_member(member_id, member_name,  member_email, pwd)
 values ('admin', '관리자', 'admin@gmail.com', '1234');
 
+update tbl_member set admin_yn = 'Y' where member_id='admin'
+
+delete from tbl_member where member_name='kimkim'
+
 COMMENT ON TABLE tbl_member IS '회원정보';
 
 COMMENT ON COLUMN tbl_member.member_id IS '사용자ID';
@@ -158,12 +162,25 @@ CREATE TABLE tbl_article (
 	article_moddate date default sysdate /* 글수정일자 */
 );
 
-select * from tbl_article where bbs_type = 'tip' and (article_no > 0)
-select * from tbl_article;
+select * from tbl_article where bbs_type = 'say' and (article_no > 0)
 insert into tbl_article(article_no, bbs_type,  member_id, article_title, article_content)
 values (seq_tip.nextval, 'tip', 'admin', '환경오염', '환경오염의 심각성');
 
+delete from tbl_article where article_no = '245' 253, 252, 255, 251, 147, 145, 146,
+	select * from tbl_article		 
+select article_no, article_title, article_content, article_link, article_regdate, article_moddate, member_id 
+from (select rownum rn, article_no, article_title, article_content, article_link, article_regdate, article_moddate, member_id 
+from tbl_article 
+where bbs_type = 'tip' and ( article_title like '%' ||'test'||'%' ) AND rownum <= 1 * 6 order by article_no desc ) 
+where rn > (1 -1) 
 
+UPDATE tbl_article
+SET member_id = '관리자'
+where article_no = '227' 
+			 
+
+			 
+			 
 COMMENT ON TABLE tbl_article IS '게시판';
 
 COMMENT ON COLUMN tbl_article.article_no IS '글번호';
@@ -202,6 +219,8 @@ CREATE TABLE tbl_attfile (
 	attfile_regdate date default sysdate, /* 첨부파일등록일자 */
 	attfile_moddate date default sysdate /* 첨부파일수정일자 */
 );
+
+
 
 COMMENT ON TABLE tbl_attfile IS '게시판첨부파일';
 

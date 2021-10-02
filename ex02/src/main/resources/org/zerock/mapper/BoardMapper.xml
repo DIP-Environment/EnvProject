@@ -140,33 +140,52 @@ Clob 데이터 타입을 string으로 처리
  
  <select id="tip_getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
 	<![CDATA[
-	select article_no, 
-	       article_title, 
-	       article_content, 
-	       member_id, 
-	       article_regdate, 
-	       article_moddate, 
-	       article_link
-	  from (select rownum rn, 
-	               article_no, 
-	               article_title, 
-	               article_content, 
-	               member_id, 
-	               article_regdate, 
-	               article_moddate,
-	               article_link
-			  from tbl_article
-			 where bbs_type = 'tip'
+	select article_no, article_title, article_content, member_id, article_regdate, article_moddate
+	from (select /*+INDEX_DESC(tbl_article PK_tbl_article) */
+			rownum rn, article_no, article_title, article_content, member_id, article_regdate, article_moddate
+			from tbl_article
+			where bbs_type = 'tip' and
 	]]>
 	
 	<include refid="criteria"></include>
 	
-	<![CDATA[and rownum <= #{pageNum} * #{amount}
-	        order by article_no desc
-	)
+	<![CDATA[rownum <= #{pageNum} * #{amount})
 	where rn > (#{pageNum} -1) * #{amount}
 	]]>
 </select>
+ 
+<!--  <select id="tip_getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
+	<![CDATA[
+	select article_no,		    
+	       article_title, 
+	       article_content, 
+	       article_link,
+	       article_regdate, 
+	       article_moddate,
+  		   member_id
+	  from (select rownum rn, 
+	               article_no,	               
+	               article_title, 
+	               article_content, 
+	               article_link,
+	               article_regdate, 
+	               article_moddate,
+	               member_id	               
+			  from tbl_article 
+			 where rownum <= #{pageNum} * #{amount} bbs_type = 'tip' order by article_no desc  
+	]]>
+	
+	<include refid="criteria"></include>
+	  ) 
+	<![CDATA[
+	where   rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select> -->
+
+
+
+
+
 
 
 <insert id="tip_insertSelectKey">

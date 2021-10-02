@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.MemberMapper">
+
+<!-- 사용한 곳: 로그인, 중복 아이디 찾기 -->
+<resultMap id="mb" type="org.zerock.domain.MemberVO">
+	<result column="member_id" property="memberId" />
+	<result column="member_name" property="memberName" />
+	<result column="member_email" property="memberEmail" />
+	<result column="pwd" property="password" />	
+	<result column="pwd_error_num" property="passwordErrorNum" />
+	<result column="admin_yn" property="admin_yn"/>
+</resultMap> 
+
+<!-- 로그인 -->
+<select id="login" resultType="org.zerock.domain.MemberVO" resultMap="mb">
+        SELECT *
+          FROM tbl_member
+         WHERE member_id = #{memberId}
+           AND pwd = #{password}
+</select>
+
+
+
+<!-- <select id="login1" resultType="com.env.domain.MemberVO"  >
+        SELECT *
+          FROM EN_MEMBER
+         WHERE member_name = #{memberName}
+</select> -->
+
+<!-- 회원가입 -->
+<insert id="insertMember">
+	insert into tbl_member (member_id, member_name, member_email, pwd, pwd_error_num)
+	 values (#{memberId}, #{memberName}, #{memberEmail}, #{password}, #{passwordErrorNum})
+</insert>
+
+<!-- 중복 아이디 찾기 -->
+<select id="checkDuplicateId" resultType="org.zerock.domain.MemberVO" resultMap="mb">
+	SELECT * FROM tbl_member WHERE  member_id=#{memberId}
+</select>
+
+<!-- 비밀번호 틀릴 시 횟수 증가 -->
+<update id="updatePasswordErrorNum">
+	UPDATE tbl_member SET pwd_error_num = #{passwordErrorNum} WHERE member_id = #{memberId}
+</update>
+
+<!-- 비밀번호 틀린 횟수 -->
+<select id="selectPasswordErrorNum" resultType="org.zerock.domain.MemberVO" resultMap="mb">
+	select pwd_error_num from tbl_member where member_id=#{memberId}
+</select>
+
+<select id="checkAdmin" resultType="String">
+	select admin_yn from tbl_member where member_name = #{memberName}
+</select>
+
+</mapper>

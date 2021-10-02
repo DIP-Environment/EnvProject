@@ -29,7 +29,7 @@ public class BoardMapperTests {
 		list.forEach(board -> log.info(board.getArticle_no()));
 	}*/
 	
-	@Test
+/*	@Test
 	public void testSearch() {
 		Criteria cri = new Criteria();
 		cri.setKeyword("새로");
@@ -37,12 +37,12 @@ public class BoardMapperTests {
 		
 		List<BoardVO> list = mapper.tip_getListWithPaging(cri);
 		list.forEach(board -> log.info(board));
-	}
-/*	@Test
-	public void testGetList() {
-		mapper.getList().forEach(board ->log.info(board));
-		
 	}*/
+	@Test
+	public void testGetList() {
+		mapper.tip_getList().forEach(board ->log.info(board));
+		
+	}
 	
 /*	@Test
 	public void testInsert() {

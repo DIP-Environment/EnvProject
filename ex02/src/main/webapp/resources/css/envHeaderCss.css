@@ -8,6 +8,7 @@ DEPENDENCES
 
 .r-link{
   display: var(--rLinkDisplay, inline-flex) !important;
+
 }
 
 .r-link[href]{
@@ -157,3 +158,4 @@ body{
 .page__menu:nth-child(n+2){
   margin-top:2rem;
 }
+

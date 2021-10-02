@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.SayMapper">
+
+<!-- Clob 데이터 타입을 string으로 처리  -->
+<resultMap type="org.zerock.domain.BoardVO" id="clobToStr">
+	<result property="article_no" column="article_no" />
+	<result property="article_title" column="article_title" />
+	<result property="article_content" column="article_content" javaType="string"/>
+	<result property="article_link" column="article_link"/>
+	<result property="article_regdate" column="article_regdate"/>
+	<result property="article_moddate" column="article_moddate"/>
+	<result property="member_id" column="member_id"/>
+</resultMap>
+
+<select id="say_getList"  resultType="org.zerock.domain.BoardVO" resultMap="clobToStr"  >
+<![CDATA[select * from tbl_article where bbs_type = 'say' and (article_no > 0) ]]>
+</select>
+
+<!-- 검색 데이터의 개수 처리 -->
+ <sql id="criteria">
+ 	<trim prefix="(" suffix=") AND " prefixOverrides="OR" >
+		<foreach item='type' collection="typeArr">
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'T'.toString()">
+						article_title like '%' ||#{keyword}||'%'
+					</when>
+					<when test="type == 'C'.toString()">
+						article_content like '%' ||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+ </sql>
+ 
+ <select id="say_getListWithPaging" resultType="org.zerock.domain.BoardVO" resultMap="clobToStr">
+	<![CDATA[
+	select article_no, article_title, article_content, member_id, article_regdate, article_moddate, article_link
+	from (select /*+INDEX_DESC(tbl_article PK_tbl_article) */
+			rownum rn, article_no, article_title, article_content, member_id, article_regdate, article_moddate, article_link
+			from tbl_article
+			where bbs_type = 'say' and
+	]]>
+	
+	<include refid="criteria"></include>
+	
+	<![CDATA[rownum <= #{pageNum} * #{amount})
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+</select>
+
+
+<insert id="say_insertSelectKey">
+	<selectKey keyProperty="article_no" order="BEFORE" resultType="long">
+		select seq_tip.nextval 
+		  from dual
+	</selectKey>
+	
+	insert into tbl_article (article_no, article_title, article_content, article_link, member_id,  bbs_type)
+	values (#{article_no}, #{article_title}, #{article_content}, #{article_link}, #{member_id}, 'say' )
+</insert>
+
+
+<select id="say_read" resultType="org.zerock.domain.BoardVO"  >
+	select * 
+	  from tbl_article
+	 where article_no=#{article_no}
+</select>
+
+<delete id="say_delete" >
+	delete 
+	  from tbl_article 
+	 where article_no=#{article_no}
+</delete>
+
+<update id="say_update" >
+	update tbl_article
+	   set article_title=#{article_title},
+	       article_content=#{article_content},
+	       <!-- article_link=#{article_link}, -->
+	       member_id=#{member_id},
+	       article_moddate=sysdate
+	 where article_no = #{article_no}
+</update>
+
+<select id="say_getTotalCount" resultType="int">
+	select count(*) 
+	  from tbl_article
+	 where bbs_type = 'say' 
+	   and
+	<include refid="criteria"></include>
+	article_no > 0
+</select>
+</mapper>

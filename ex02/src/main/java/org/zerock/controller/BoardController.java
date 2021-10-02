@@ -12,6 +12,8 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
+import org.zerock.service.SayService;
+import org.zerock.service.TalkService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -23,16 +25,23 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	   
 	private BoardService service;
+	private SayService sayservice;
+	private TalkService talkservice;
 	
 	@GetMapping("/envMain")
-	public void main() {}
+	public void main(Criteria cri, Model model) {
+		log.info("tipList: " + cri);
+		
+		model.addAttribute("list", service.tip_getList(cri));
+		model.addAttribute("sayList", sayservice.say_getList(cri));
+		model.addAttribute("talkList", talkservice.talk_getList(cri));
+	}
 	
 	/* 팁 목록 출력 (페이징 처리) */
 	@GetMapping("/tipList")
 	public void tip_list(Criteria cri, Model model) {
 		log.info("tipList: " + cri);
-		model.addAttribute("list", service.tip_getList(cri)); 		//목록
-		
+		model.addAttribute("list", service.tip_getList(cri)); 		//목록		
 		int total = service.tip_getTotal(cri);
 		log.info("total: " + total);
 		model.addAttribute("pageMaker", new PageDTO(cri, total)); //페이지 정보
@@ -50,7 +59,7 @@ public class BoardController {
 	@PostMapping("/register")
 	public String tip_register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register: " + board);
-		board.setMember_id("id");
+		
 		service.tip_register(board);
 		
 		rttr.addFlashAttribute("result", board.getArticle_no()); //modal창에서 사용

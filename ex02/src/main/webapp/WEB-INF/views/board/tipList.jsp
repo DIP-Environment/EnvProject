@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String loginMember = (String)session.getAttribute("loginMember");
+%>       
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,13 +30,13 @@
     
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
-    <body>
+    <body style="background-color:#f5f5f5;">
         <%@include file="../includes/envHeader.jsp"%>
         <!-- Header-->
         <header class="py-5">
-            <div class="container px-lg-5">
-                <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                    <div class="m-4 m-lg-5">
+            <div class="container px-lg-5" >
+                <div class="p-4 p-lg-5 rounded-3 text-center" style="background-color:#ffffff;">
+                    <div class="m-4 m-lg-5" >
                         <h1 class="display-5 fw-bold" style="font-family: 'Gowun Batang', serif;">우리 근처의 친환경을 소개해요 </h1>
                         <p class="fs-4" style="font-family: 'Gowun Batang', serif;">생활 속 환경 팁을 공유합니다.</p>
                         <!-- <a class="btn btn-primary btn-lg" href="#!">Call to action</a> -->
@@ -53,12 +56,12 @@
                 	
 	                    <div class="col-lg-6 col-xxl-4 mb-5">
 	                    	
-	                        <div class="card bg-light border-0 h-100">
+	                        <div class="card bg-light border-0 h-100" >
 	                       <!-- card -->
 	                       	<a class='move' href='<c:out value="${board.article_no}"/>'>
-	                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+	                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0"style="background-color:#ffffff; height:202px; width:379px;">
 	                            <!-- icon -->
-	                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+	                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4" ><i class="bi bi-collection"></i></div>
 	                                <h2 class="fs-4 fw-bold" style="font-family: 'Gowun Batang', serif;"><c:out value="${board.article_title}"/></h2><hr>
 	                                <%-- <p class="mb-0 " style="overflow: hidden; text-overflow: ellipsis;white-space: nowrap; width: 280px; height: 30px;">
 	                                	<c:out value="${board.article_content}" escapeXml="true"/>
@@ -88,7 +91,7 @@
                	<input type="text" name="keyword" placeholder="검 색" style="text-align:left" value='<c:out value="${pageMaker.cri.keyword}"/>'>
               	<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
        			<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>
-       			<button class="btn btn-default px-1"  style="width:20px; border:0; outline:0;"><i class="fa fa-search fa-2x" ></i></button>
+       			<button class="btn btn-default px-1"  style="width:20px; border:0; outline:0; background-color:#f5f5f5;"><i class="fa fa-search fa-2x" ></i></button>
        			</form>
            </div>
               
@@ -96,8 +99,9 @@
              <!-- button -->
              
              <div class="d-flex flex-row-reverse">
-             	
+             	<c:if test = "${ not empty loginMember}">
                	<button id='regBtn'class="btn info p-2 " style='border-radius: 30px; '>글쓰기</button>
+               	</c:if>
                	<button id='resetBtn'class="btn info p-2 mx-2 " style='border-radius: 30px; '>모두 보기</button>
              </div> 
              

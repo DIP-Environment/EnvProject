@@ -15,7 +15,7 @@
 /* 컨텐츠 레이아웃 */
 #cont_nav {background-color: #f6fdff; display: none;}
 #cont_tit {background-color: #EAF7FD;}
-#cont_ban {background-color: #dceff7;}
+#cont_ban {background-color: #D5E7EC;}
 #cont_cont {background-color: #f6fdff;}
 
 /* 컨테이너 */
@@ -91,7 +91,7 @@
 .ban .slick-slide {margin: 10px;}
 .ban .slick-dots {position: absolute; bottom: 15px; display: block; width: 100%; text-align: center;}
 .ban .slick-dots li {display: inline-block; width: 15px; height: 15px; margin: 5px;}
-.ban .slick-dots li button {font-size: 0; line-height: 0; display: block; width: 15px; height: 15px;
+.ban .slick-dots li button {font-size: 0; line-height: 0; display: block; width: 15px; height: 15px; 
 cursor: pointer; background: #5dbfeb; border-radius: 50%;}
 .ban .slick-dots li.slick-active button {background: #2b91c8;}
 
